@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oracle Bone, Or 7694/1655+1672 — British Library</title>
+
+  <!-- BL new site uses a refined serif + clean sans pairing -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #efebe4;   /* warm cream — exact BL new site bg */
+      color: #1c1a18;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ══════════════════════════════════════
+       FIXED BL LOGO — red vertical tab, top-right
+    ══════════════════════════════════════ */
+    .bl-logo-tab {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 200;
+      width: 48px;
+      background: #e8001c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 0 18px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .bl-logo-tab span {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #fff;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    /* ══════════════════════════════════════
+       FLOATING NAV PILL — centred, sticky
+    ══════════════════════════════════════ */
+    .nav-wrap {
+      position: sticky;
+      top: 16px;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+      padding: 16px 0 0;
+    }
+    .nav-pill {
+      pointer-events: all;
+      background: #fff;
+      border-radius: 999px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+      display: flex;
+      align-items: center;
+      padding: 8px 10px 8px 20px;
+      gap: 4px;
+    }
+    .nav-pill a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #1c1a18;
+      padding: 7px 14px;
+      border-radius: 999px;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .nav-pill a:hover { background: #f0ede8; }
+    .nav-pill .menu-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #f0ede8;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin-left: 4px;
+      flex-shrink: 0;
+    }
+    .nav-pill .menu-btn span {
+      display: block;
+      width: 16px;
+      height: 1.5px;
+      background: #1c1a18;
+      border-radius: 2px;
+    }
+
+    /* ══════════════════════════════════════
+       PAGE HEADER — centred, generous space
+    ══════════════════════════════════════ */
+    .page-header {
+      text-align: center;
+      padding: 56px 24px 48px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .page-header .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8a7f72;
+      margin-bottom: 18px;
+    }
+    .page-header h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 400;
+      line-height: 1.12;
+      color: #1c1a18;
+      margin-bottom: 20px;
+    }
+    .page-header .ref-tag {
+      display: inline-block;
+      background: #e8001c;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 2px;
+      margin-bottom: 22px;
+    }
+    .page-header p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #5a5248;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    /* ══════════════════════════════════════
+       BREADCRUMB
+    ══════════════════════════════════════ */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: #8a7f72;
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px 24px;
+    }
+    .breadcrumb a { color: #5a5248; }
+    .breadcrumb a:hover { color: #e8001c; }
+    .breadcrumb .sep { color: #c0b8ae; font-size: 0.7rem; }
+
+    /* ══════════════════════════════════════
+       MAIN LAYOUT — viewer + sidebar
+    ══════════════════════════════════════ */
+    .main-grid {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* ── Viewer card ── */
+    .viewer-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+    }
+    .viewer-card-header {
+      padding: 20px 24px 14px;
+      border-bottom: 1px solid #ede9e2;
+    }
+    .viewer-card-header h2 {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #8a7f72;
+    }
+    .sketchfab-embed-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 58%;
+      background: #f7f4f0;
+    }
+    .sketchfab-embed-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .sketchfab-embed-wrapper p {
+      position: absolute;
+      bottom: 8px;
+      left: 0; right: 0;
+      text-align: center;
+    }
+    .viewer-card-footer {
+      padding: 14px 24px;
+      font-size: 0.78rem;
+      color: #8a7f72;
+      font-style: italic;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar { display: flex; flex-direction: column; gap: 20px; }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+    .card h3 {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #e8001c;
+      margin-bottom: 16px;
+    }
+
+    /* Object details table */
+    .details-list { display: flex; flex-direction: column; gap: 10px; }
+    .detail-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f0ede8;
+      font-size: 0.84rem;
+    }
+    .detail-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .detail-row .label { font-weight: 600; color: #1c1a18; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .detail-row .value { color: #5a5248; }
+
+    /* Related links */
+    .related-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .related-links li a {
+      font-size: 0.86rem;
+      color: #1c1a18;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .related-links li a:hover { color: #e8001c; }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    footer {
+      background: #1c1a18;
+      color: #a09890;
+      font-size: 0.82rem;
+      padding: 48px 0 32px;
+    }
+    .footer-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .footer-cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid #2e2b28;
+      margin-bottom: 24px;
+    }
+    .footer-col h4 {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul li a { color: #a09890; }
+    .footer-col ul li a:hover { color: #fff; }
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: #6a6260;
+    }
+    .footer-bottom a { color: #6a6260; text-decoration: underline; }
+    .footer-bottom a:hover { color: #fff; }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════ */
+    @media (max-width: 860px) {
+      .main-grid { grid-template-columns: 1fr; }
+      .footer-cols { grid-template-columns: 1fr 1fr; }
+      .nav-pill a:not(:first-child):not(:nth-child(2)) { display: none; }
+    }
+    @media (max-width: 560px) {
+      .footer-cols { grid-template-columns: 1fr; }
+      .nav-pill a { display: none; }
+      .nav-pill { padding: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── BL RED LOGO TAB (top-right, fixed) ── -->
+  <a class="bl-logo-tab" href="https://www.bl.uk" target="_blank" rel="noopener" aria-label="British Library home">
+    <span>British Library</span>
+  </a>
+
+  <!-- ── FLOATING NAV PILL ── -->
+  <div class="nav-wrap">
+    <nav class="nav-pill" aria-label="Primary navigation">
+      <a href="https://www.bl.uk/collection" target="_blank">Collection</a>
+      <a href="https://events.bl.uk" target="_blank">What's on</a>
+      <a href="https://www.bl.uk/visit" target="_blank">Visit</a>
+      <a href="https://www.bl.uk/stories" target="_blank">Stories</a>
+      <button class="menu-btn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PAGE HEADER — ✏️ Edit title & description here
+  ══════════════════════════════════════ -->
+  <header class="page-header">
+    <div class="eyebrow">3D Digital Object · British Library Collection</div>
+    <h1>Oracle Bone<br>Or 7694/1655+1672</h1>
+    <div class="ref-tag">Shang Dynasty · c. 1250–1050 BCE</div>
+    <p>
+      A fragment of bovine scapula inscribed with divination records in one of
+      the earliest known forms of Chinese writing. Rotate, zoom and explore
+      the inscriptions using the interactive 3D viewer below.
+    </p>
+  </header>
+
+  <!-- ── BREADCRUMB ── -->
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="https://www.bl.uk">Home</a>
+    <span class="sep">›</span>
+    <a href="https://www.bl.uk/collection">Collection</a>
+    <span class="sep">›</span>
+    <a href="#">3D Objects</a>
+    <span class="sep">›</span>
+    <span>Oracle Bone, Or 7694/1655+1672</span>
+  </nav>
+
+  <!-- ── MAIN GRID ── -->
+  <main class="main-grid">
+
+    <!-- 3D Viewer -->
+    <div class="viewer-card">
+      <div class="viewer-card-header">
+        <h2>Interactive 3D viewer</h2>
+      </div>
+
+      <div class="sketchfab-embed-wrapper">
+        <iframe
+          title="Oracle Bone, Or 7694/1655+1672"
+          frameborder="0"
+          allowfullscreen
+          mozallowfullscreen="true"
+          webkitallowfullscreen="true"
+          allow="autoplay; fullscreen; xr-spatial-tracking"
+          xr-spatial-tracking
+          execution-while-out-of-viewport
+          execution-while-not-rendered
+          web-share
+          src="https://sketchfab.com/models/ec30118266de4f318031ee1804a0eefb/embed?autospin=1&autostart=1&preload=1&transparent=1">
+        </iframe>
+        <p style="font-size:12px;font-weight:normal;margin:5px;color:#4A4A4A;">
+          <a href="https://sketchfab.com/3d-models/oracle-bone-or-769416551672-ec30118266de4f318031ee1804a0eefb?utm_medium=embed&utm_campaign=share-popup&utm_content=ec30118266de4f318031ee1804a0eefb"
+             target="_blank" rel="nofollow" style="font-weight:bold;color:#1CAAD9;">Oracle Bone, Or 7694/1655+1672</a>
+          by
+          <a href="https://sketchfab.com/britishlibrary?utm_medium=embed&utm_campaign=share-popup&utm_content=ec30118266de4f318031ee1804a0eefb"
+             target="_blank" rel="nofollow" style="font-weight:bold;color:#1CAAD9;">British Library</a>
+          on
+          <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=ec30118266de4f318031ee1804a0eefb"
+             target="_blank" rel="nofollow" style="font-weight:bold;color:#1CAAD9;">Sketchfab</a>
+        </p>
+      </div>
+
+      <div class="viewer-card-footer">
+        Use your mouse or touchscreen to rotate, zoom and explore the object. Click the fullscreen icon for an immersive view.
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+      <div class="card">
+        <h3>Object details</h3>
+        <div class="details-list">
+          <div class="detail-row">
+            <span class="label">Reference</span>
+            <span class="value">Or 7694/1655+1672</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Date</span>
+            <span class="value">c. 1250–1050 BCE</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Material</span>
+            <span class="value">Bovine scapula</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Script</span>
+            <span class="value">Oracle bone script (甲骨文)</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Origin</span>
+            <span class="value">Anyang, Henan, China</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Dynasty</span>
+            <span class="value">Shang dynasty</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">3D model</span>
+            <span class="value">British Library / Sketchfab</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Related resources</h3>
+        <ul class="related-links">
+          <li><a href="https://www.bl.uk/collection/highlights" target="_blank">Collection highlights</a></li>
+          <li><a href="https://sketchfab.com/britishlibrary" target="_blank">British Library on Sketchfab</a></li>
+          <li><a href="https://www.bl.uk/stories" target="_blank">Stories from the collection</a></li>
+          <li><a href="https://catalogue.bl.uk" target="_blank">Search our catalogue</a></li>
+        </ul>
+      </div>
+
+    </aside>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>About us</h4>
+          <ul>
+            <li><a href="https://www.bl.uk/about" target="_blank">Who we are</a></li>
+            <li><a href="https://www.bl.uk/about/press" target="_blank">Press and media</a></li>
+            <li><a href="https://www.bl.uk/about/careers" target="_blank">Jobs</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Join us</h4>
+          <ul>
+            <li><a href="https://www.bl.uk/visit/reader-pass" target="_blank">Free Reader Pass</a></li>
+            <li><a href="https://www.bl.uk/visit/reading-rooms" target="_blank">Free study spaces</a></li>
+            <li><a href="https://support.bl.uk" target="_blank">Support our work</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="https://imagesonline.bl.uk" target="_blank">Collection images</a></li>
+            <li><a href="https://www.bl.uk/services/digitisation" target="_blank">Digitisation</a></li>
+            <li><a href="https://www.bl.uk/services" target="_blank">All services</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 British Library, 96 Euston Road, London, NW1 2DB</span>
+        <span>
+          <a href="https://www.bl.uk/privacy">Privacy policy</a> ·
+          <a href="https://www.bl.uk/terms">Terms and conditions</a> ·
+          <a href="https://www.bl.uk/accessibility-statement">Accessibility</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
