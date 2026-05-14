@@ -1,4 +1,5 @@
-!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -34,11 +35,26 @@
       display: block;
     }
 
+    /* ── TOP BANNER ── */
+    .top-banner {
+      background: #e8001c;
+      color: #fff;
+      text-align: center;
+      padding: 28px 24px;
+    }
+    .top-banner .callout-headline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 0;
+    }
+
     /* ── PAGE HEADER (centred title block) ── */
     .page-header {
       text-align: center;
-      padding: 56px 24px 40px;
-      max-width: 860px;
+      padding: 72px 160px 48px;
+      max-width: 1920px;
       margin: 0 auto;
     }
     .page-header .eyebrow {
@@ -71,9 +87,9 @@
 
     /* ── TWO COLUMN LAYOUT ── */
     .two-col {
-      max-width: 1140px;
+      max-width: 1920px;
       margin: 0 auto;
-      padding: 0 24px 80px;
+      padding: 0 160px 80px;
       display: grid;
       grid-template-columns: 1fr 1.6fr;
       gap: 48px;
@@ -187,8 +203,9 @@
       padding: 56px 24px;
     }
     .details-band-inner {
-      max-width: 1140px;
+      max-width: 1920px;
       margin: 0 auto;
+      padding: 0 160px;
     }
     .details-band h3 {
       font-size: 0.68rem;
@@ -223,9 +240,9 @@
       padding: 28px 0;
     }
     .footer-bottom {
-      max-width: 1140px;
+      max-width: 1920px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 160px;
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
@@ -256,9 +273,14 @@
     <img src="https://raw.githubusercontent.com/noramcgregor/OracleBones/main/BL_Logo_RGB_1600x.webp" alt="British Library" />
   </a>
 
+  <!-- ── TOP BANNER ── -->
+  <section class="top-banner">
+    <p class="callout-headline">Working in libraries isn't <em>always</em> just about books.</p>
+  </section>
+
   <!-- ── TITLE BLOCK ── -->
   <header class="page-header">
-    <div class="eyebrow">3D Digital Object · British Library Collection</div>
+    <div class="eyebrow">Working at the British Library</div>
     <h1>The OG ChatGPT:<br>Oracle Bones</h1>
     <div class="ref-tag">How the Shang Dynasty asked questions 3,000 years ago</div>
   </header>
@@ -320,10 +342,9 @@
 
   </div>
 
-  <!-- ── CALLOUT SECTION ── -->
+  <!-- ── CALLOUT SECTION (roles only) ── -->
   <section class="callout">
     <div class="callout-inner">
-      <p class="callout-headline">Working in libraries isn't <em>always</em> just about books.</p>
       <p class="callout-sub">Caring for objects like this one — and making them accessible to everyone — takes a whole team of people with all sorts of different skills!</p>
       <div class="roles">
         <span>Curators</span>
