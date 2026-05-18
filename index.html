@@ -13,7 +13,7 @@
 
     body {
       font-family: 'Inter', -apple-system, sans-serif;
-      background: #efebe4;
+      background: #f5f3ef;
       color: #1c1a18;
       min-height: 100vh;
       overflow-x: hidden;
@@ -67,7 +67,7 @@
     }
     .page-header .ref-tag {
       display: inline-block;
-      background: #e8001c;
+      background: #000000;
       color: #fff;
       font-size: 0.7rem;
       font-weight: 600;
@@ -93,13 +93,58 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
-      padding-top: 8px;
+    }
+
+    /* ── Description panel ── */
+    .description-panel {
+      background: #e8e6dc;
+      border-radius: 12px;
+      padding: 24px 28px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
     .description {
+      font-family: 'Nunito Sans', sans-serif;
       font-size: 1rem;
-      line-height: 1.65;
-      color: #5a5248;
+      font-weight: 300;
+      line-height: 1.8;
+      color: #000;
+    }
+
+    /* ── Inline callout panel ── */
+    .inline-callout {
+      background: #7B68AE;
+      color: #fff;
+      border-radius: 12px;
+      padding: 24px 28px;
+    }
+    .inline-callout-sub {
+      font-family: 'Nunito Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      opacity: 0.92;
+      margin-bottom: 16px;
+    }
+    .inline-callout .roles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-start;
+    }
+    .inline-callout .roles span {
+      background: #8de8a0;
+      color: #1c1a18;
+      border: none;
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
     /* ── RIGHT: viewer ── */
@@ -148,72 +193,6 @@
       font-style: italic;
     }
 
-    /* ── INLINE CALLOUT PANEL ── */
-    .inline-callout {
-      background: #7B68AE;
-      color: #fff;
-      border-radius: 12px;
-      padding: 24px 28px;
-    }
-    .inline-callout-sub {
-      font-family: 'Nunito Sans', sans-serif;
-      font-size: 1rem;
-      font-weight: 300;
-      line-height: 1.8;
-      opacity: 0.92;
-      margin-bottom: 16px;
-    }
-    .inline-callout .roles {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: flex-start;
-    }
-    .inline-callout .roles span {
-      background: #8de8a0;
-      color: #1c1a18;
-      border: none;
-      border-radius: 999px;
-      padding: 5px 14px;
-      font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    /* ── CALLOUT ── */
-    .callout {
-      background: #e8001c;
-      color: #fff;
-      padding: 32px 120px;
-      text-align: center;
-    }
-    .callout-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-    .callout-sub {
-      font-size: 1rem;
-      line-height: 1.6;
-      opacity: 0.92;
-      margin-bottom: 20px;
-    }
-    .roles {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-    .roles span {
-      border: 2px solid rgba(255,255,255,0.6);
-      border-radius: 999px;
-      padding: 7px 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
     /* ── OBJECT DETAILS BAND ── */
     .details-band {
       background: #fff;
@@ -235,7 +214,6 @@
     .details-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 0;
     }
     .details-band .detail-row {
       display: flex;
@@ -249,7 +227,7 @@
 
     /* ── FOOTER ── */
     footer {
-      background: #1c1a18;
+      background: #fff;
       padding: 16px 0;
     }
     .footer-bottom {
@@ -271,7 +249,8 @@
       html { font-size: 16px; }
       .two-col { grid-template-columns: 1fr; padding: 20px 40px 24px; }
       .right-col { position: static; }
-      .top-banner, .page-header, .callout, .details-band-inner, .footer-bottom { padding-left: 40px; padding-right: 40px; }
+      .top-banner, .page-header { padding-left: 40px; padding-right: 40px; }
+      .details-band-inner, .footer-bottom { padding-left: 40px; padding-right: 40px; }
       .details-grid { grid-template-columns: repeat(4, 1fr); }
     }
   </style>
@@ -290,7 +269,7 @@
 
   <!-- ── TITLE BLOCK ── -->
   <header class="page-header">
-    <h1>The OG ChatGPT: Oracle Bones</h1>
+    <h1>Oracle Bones: The OG ChatGPT</h1>
     <div class="ref-tag">How the Shang Dynasty asked questions 3,000 years ago</div>
   </header>
 
@@ -299,19 +278,14 @@
 
     <!-- LEFT -->
     <div class="left-col">
-      <p class="description">
-        Dating to the Shang dynasty (c. 1600–1050 BC), these bones are the oldest items held in the British Library.
-      </p>
-      <p class="description">
-        Oracle bones are animal bones, usually ox shoulder bones (like this one!) or the underside of turtle shells
-        that were used by Shang kings and priests (the diviners) to ask questions to the gods.<br><br>
-        They would carve their questions (about things like the weather, the future of the dynasty
-        or military victory) onto the bone or shell using a sharp tool.<br><br>
-        A hot metal rod was then applied to the bone or shell until it cracked. The diviners would then
-        interpret the cracks and write the answer on the bone or shell.
-      </p>
 
-      <!-- ── INLINE CALLOUT PANEL ── -->
+      <div class="description-panel">
+        <p class="description">Dating to the Shang dynasty (c. 1600–1050 BC), these bones are the oldest items held in the British Library.</p>
+        <p class="description">Oracle bones are animal bones, usually ox shoulder bones (like this one!) or the underside of turtle shells that were used by Shang kings and priests (the diviners) to ask questions to the gods.</p>
+        <p class="description">They would carve their questions (about things like the weather, the future of the dynasty or military victory) onto the bone or shell using a sharp tool.</p>
+        <p class="description">A hot metal rod was then applied to the bone or shell until it cracked. The diviners would then interpret the cracks and write the answer on the bone or shell.</p>
+      </div>
+
       <div class="inline-callout">
         <p class="inline-callout-sub">Caring for objects like this one — and making them accessible to everyone — takes a whole team of people with all sorts of different skills!</p>
         <div class="roles">
@@ -322,6 +296,7 @@
           <span>Researchers</span>
         </div>
       </div>
+
     </div>
 
     <!-- RIGHT: 3D viewer -->
@@ -362,8 +337,6 @@
     </div>
 
   </div>
-
-
 
   <!-- ── OBJECT DETAILS BAND ── -->
   <section class="details-band">
