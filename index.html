@@ -9,60 +9,61 @@
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; scroll-behavior: smooth; }
+    html { font-size: 20px; scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', -apple-system, sans-serif;
       background: #efebe4;
       color: #1c1a18;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
     a { color: inherit; text-decoration: none; }
 
-    /* ── BL LOGO — top-right, fixed ── */
+    /* ── BL LOGO ── */
     .bl-logo-tab {
       position: fixed;
-      top: 16px;
-      right: 16px;
+      top: 20px;
+      right: 20px;
       z-index: 200;
       display: block;
     }
     .bl-logo-tab img {
-      height: 120px;
+      height: 100px;
       width: auto;
       display: block;
     }
 
     /* ── TOP BANNER ── */
     .top-banner {
-      background: #e8001c;
+      background: #7B68AE;
       color: #fff;
       text-align: center;
-      padding: 28px 24px;
+      padding: 18px 120px;
     }
     .top-banner .callout-headline {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      font-size: 1.5rem;
       font-weight: 400;
       line-height: 1.2;
-      margin-bottom: 0;
     }
+    .top-banner .callout-headline em { font-style: italic; }
 
-    /* ── PAGE HEADER (centred title block) ── */
+    /* ── PAGE HEADER ── */
     .page-header {
       text-align: center;
-      padding: 24px 160px 32px;
+      padding: 20px 120px 16px;
       max-width: 1920px;
       margin: 0 auto;
     }
     .page-header h1 {
       font-family: 'DM Sans', -apple-system, sans-serif;
-      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-size: 3.2rem;
       font-weight: 300;
-      line-height: 1.12;
+      line-height: 1.1;
       color: #1c1a18;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     .page-header .ref-tag {
       display: inline-block;
@@ -72,7 +73,7 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 5px 12px;
+      padding: 5px 14px;
       border-radius: 2px;
     }
 
@@ -80,9 +81,9 @@
     .two-col {
       max-width: 1920px;
       margin: 0 auto;
-      padding: 0 160px 80px;
+      padding: 20px 120px 24px;
       display: grid;
-      grid-template-columns: 1fr 1.6fr;
+      grid-template-columns: 1.2fr 1.8fr;
       gap: 48px;
       align-items: start;
     }
@@ -91,30 +92,31 @@
     .left-col {
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 16px;
+      padding-top: 8px;
     }
 
     .description {
-      font-size: 1.05rem;
-      line-height: 1.75;
+      font-size: 1rem;
+      line-height: 1.65;
       color: #5a5248;
     }
 
     /* ── RIGHT: viewer ── */
-    .right-col { position: sticky; top: 24px; }
+    .right-col { position: sticky; top: 16px; }
 
     .viewer-card {
       background: #fff;
-      border-radius: 16px;
+      border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 1px 8px rgba(0,0,0,0.06);
     }
     .viewer-card-header {
-      padding: 18px 24px 14px;
+      padding: 12px 20px 10px;
       border-bottom: 1px solid #ede9e2;
     }
     .viewer-card-header h2 {
-      font-size: 0.72rem;
+      font-size: 0.6rem;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -123,7 +125,7 @@
     .sketchfab-embed-wrapper {
       position: relative;
       width: 100%;
-      padding-bottom: 68%;
+      padding-bottom: 58%;
       background: #f7f4f0;
     }
     .sketchfab-embed-wrapper iframe {
@@ -135,34 +137,64 @@
     }
     .sketchfab-embed-wrapper p {
       position: absolute;
-      bottom: 8px;
+      bottom: 6px;
       left: 0; right: 0;
       text-align: center;
     }
     .viewer-card-footer {
-      padding: 14px 24px;
-      font-size: 0.78rem;
+      padding: 10px 20px;
+      font-size: 0.6rem;
       color: #8a7f72;
       font-style: italic;
+    }
+
+    /* ── INLINE CALLOUT PANEL ── */
+    .inline-callout {
+      background: #1e2156;
+      color: #fff;
+      border-radius: 12px;
+      padding: 24px 28px;
+    }
+    .inline-callout-sub {
+      font-size: 0.85rem;
+      line-height: 1.65;
+      opacity: 0.92;
+      margin-bottom: 16px;
+    }
+    .inline-callout .roles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-start;
+    }
+    .inline-callout .roles span {
+      background: #8de8a0;
+      color: #1c1a18;
+      border: none;
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
     /* ── CALLOUT ── */
     .callout {
       background: #e8001c;
       color: #fff;
-      padding: 72px 24px;
+      padding: 32px 120px;
       text-align: center;
     }
     .callout-inner {
-      max-width: 900px;
+      max-width: 1400px;
       margin: 0 auto;
     }
     .callout-sub {
-      font-size: 1.1rem;
-      line-height: 1.7;
-      opacity: 0.88;
-      max-width: 620px;
-      margin: 0 auto 36px;
+      font-size: 1rem;
+      line-height: 1.6;
+      opacity: 0.92;
+      margin-bottom: 20px;
     }
     .roles {
       display: flex;
@@ -173,8 +205,8 @@
     .roles span {
       border: 2px solid rgba(255,255,255,0.6);
       border-radius: 999px;
-      padding: 8px 20px;
-      font-size: 0.88rem;
+      padding: 7px 20px;
+      font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -183,70 +215,62 @@
     /* ── OBJECT DETAILS BAND ── */
     .details-band {
       background: #fff;
-      padding: 56px 24px;
+      padding: 28px 0;
     }
     .details-band-inner {
       max-width: 1920px;
       margin: 0 auto;
-      padding: 0 160px;
+      padding: 0 120px;
     }
     .details-band h3 {
-      font-size: 0.68rem;
+      font-size: 0.6rem;
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
       color: #e8001c;
-      margin-bottom: 28px;
+      margin-bottom: 16px;
     }
     .details-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(7, 1fr);
       gap: 0;
     }
     .details-band .detail-row {
       display: flex;
       flex-direction: column;
       gap: 4px;
-      padding: 16px 24px 16px 0;
-      font-size: 0.9rem;
+      padding: 0 24px 0 0;
+      font-size: 0.75rem;
     }
-    .details-band .label { font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: #1c1a18; }
+    .details-band .label { font-weight: 700; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; color: #1c1a18; }
     .details-band .value { color: #5a5248; }
 
     /* ── FOOTER ── */
     footer {
       background: #1c1a18;
-      color: #a09890;
-      font-size: 0.82rem;
-      padding: 28px 0;
+      padding: 16px 0;
     }
     .footer-bottom {
       max-width: 1920px;
       margin: 0 auto;
-      padding: 0 160px;
+      padding: 0 120px;
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
       justify-content: space-between;
-      font-size: 0.75rem;
+      font-size: 0.65rem;
       color: #6a6260;
     }
     .footer-bottom a { color: #6a6260; text-decoration: underline; }
     .footer-bottom a:hover { color: #fff; }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 860px) {
-      .two-col { grid-template-columns: 1fr; padding: 0 24px 80px; }
+    @media (max-width: 1200px) {
+      html { font-size: 16px; }
+      .two-col { grid-template-columns: 1fr; padding: 20px 40px 24px; }
       .right-col { position: static; }
-      .details-grid { grid-template-columns: repeat(2, 1fr); }
-      .details-band .detail-row { border-bottom: 1px solid #ede9e2; padding: 14px 0; }
-      .details-band .detail-row:last-child { border-bottom: none; }
-      .page-header { padding: 20px 24px 24px; }
-      .details-band-inner { padding: 0 24px; }
-      .footer-bottom { padding: 0 24px; }
-    }
-    @media (max-width: 480px) {
-      .details-grid { grid-template-columns: 1fr; }
+      .top-banner, .page-header, .callout, .details-band-inner, .footer-bottom { padding-left: 40px; padding-right: 40px; }
+      .details-grid { grid-template-columns: repeat(4, 1fr); }
     }
   </style>
 </head>
@@ -284,6 +308,18 @@
         A hot metal rod was then applied to the bone or shell until it cracked. The diviners would then
         interpret the cracks and write the answer on the bone or shell.
       </p>
+
+      <!-- ── INLINE CALLOUT PANEL ── -->
+      <div class="inline-callout">
+        <p class="inline-callout-sub">Caring for objects like this one — and making them accessible to everyone — takes a whole team of people with all sorts of different skills!</p>
+        <div class="roles">
+          <span>Curators</span>
+          <span>Conservators</span>
+          <span>Imaging Technicians</span>
+          <span>Digital Curators</span>
+          <span>Researchers</span>
+        </div>
+      </div>
     </div>
 
     <!-- RIGHT: 3D viewer -->
@@ -325,19 +361,7 @@
 
   </div>
 
-  <!-- ── CALLOUT SECTION ── -->
-  <section class="callout">
-    <div class="callout-inner">
-      <p class="callout-sub">Caring for objects like this one — and making them accessible to everyone — takes a whole team of people with all sorts of different skills!</p>
-      <div class="roles">
-        <span>Curators</span>
-        <span>Conservators</span>
-        <span>Imaging Technicians</span>
-        <span>Digital Curators</span>
-        <span>Researchers</span>
-      </div>
-    </div>
-  </section>
+
 
   <!-- ── OBJECT DETAILS BAND ── -->
   <section class="details-band">
