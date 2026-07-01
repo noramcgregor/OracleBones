@@ -129,13 +129,13 @@
       opacity: 0.92;
       margin-bottom: 16px;
     }
-    .inline-callout .roles {
+    .roles {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       justify-content: flex-start;
     }
-    .inline-callout .roles span {
+    .roles span {
       background: #8de8a0;
       color: #1c1a18;
       border: none;
@@ -191,6 +191,22 @@
       font-size: 0.6rem;
       color: #8a7f72;
       font-style: italic;
+    }
+
+    .roles-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+      padding: 16px 20px;
+      margin-top: 16px;
+    }
+    .roles-card h2 {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #8a7f72;
+      margin-bottom: 12px;
     }
 
     /* ── OBJECT DETAILS BAND ── */
@@ -288,13 +304,6 @@
 
     <div class="inline-callout">
         <p class="inline-callout-sub">Caring for objects like this one — and making them accessible to everyone — takes a whole team of people with all sorts of different skills!</p>
-        <div class="roles">
-          <span>Curators</span>
-          <span>Conservators</span>
-          <span>Imaging Technicians</span>
-          <span>Digital Curators</span>
-          <span>Researchers</span>
-        </div>
 </div>
     </div>
 
@@ -334,6 +343,17 @@
           Use your mouse or touchscreen to rotate, zoom and explore. Click fullscreen for an immersive view.
         </div>
       </div>
+
+      <div class="roles-card">
+        <h2>Who makes this possible</h2>
+        <div class="roles">
+          <span>Curators</span>
+          <span>Conservators</span>
+          <span>Imaging Technicians</span>
+          <span>Digital Curators</span>
+          <span>Researchers</span>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -368,3 +388,4 @@
 
 </body>
 </html>
+
